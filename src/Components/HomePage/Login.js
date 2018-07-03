@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import Input from "../common/InputForForms";
-import Label from "../common/LabelForForms";
+import Input from "../common/InputForForm";
+import Label from "../common/LabelForForm";
+import Auth from "../services/user-auth-services";
 
 class Login extends Component {
   constructor() {
@@ -19,7 +20,7 @@ class Login extends Component {
 
   handleOnSubmitForm = event => {
     event.preventDefault();
-    console.log(this.state);
+    Auth.loginUser(this.state)
   };
 
   render() {

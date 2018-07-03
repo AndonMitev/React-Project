@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import Input from "../common/InputForForms";
-import Label from "../common/LabelForForms";
+import Input from "../common/InputForForm";
+import Label from "../common/LabelForForm";
+import Auth from "../services/user-auth-services";
 
 class Register extends Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class Register extends Component {
 
   handleOnSubmitForm = event => {
     event.preventDefault();
-    console.log(this.state);
+    Auth.createUser(this.state);
   };
 
   render() {
@@ -78,25 +79,7 @@ class Register extends Component {
                 className="form-control"
               />
               <br />
-              <Label name="confirmEmail" labelName="Confirm Email" />
-              <Input
-                name="confirmEmail"
-                type="text"
-                onChange={this.handleOnChangeInput}
-                value={this.state.confirmEmail}
-                className="form-control"
-              />
-              <br />
-              <Label name="confirmEmail" labelName="Confirm Email" />
-              <Input
-                name="confirmEmail"
-                type="text"
-                onChange={this.handleOnChangeInput}
-                value={this.state.confirmEmail}
-                className="form-control"
-              />
-              <br />
-              
+
               <Input
                 type="submit"
                 value="Sign Up"
