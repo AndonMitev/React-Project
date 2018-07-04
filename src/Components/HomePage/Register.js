@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Input from "../common/InputForForm";
 import Label from "../common/LabelForForm";
-import Auth from "../services/user-auth-services";
 
 class Register extends Component {
   constructor(props) {
@@ -23,7 +22,7 @@ class Register extends Component {
 
   handleOnSubmitForm = event => {
     event.preventDefault();
-    Auth.createUser(this.state);
+    this.props.getRegisterState(this.state);
   };
 
   render() {

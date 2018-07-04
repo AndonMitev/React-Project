@@ -1,4 +1,4 @@
-const validateInput = (username, password, cofirmPassword, email, confirmEmail) => {
+const validateInput = (username, password, confirmPassword, email, confirmEmail) => {
 
   const validUsername = (() => {
     if(!username) {
@@ -19,6 +19,18 @@ const validateInput = (username, password, cofirmPassword, email, confirmEmail) 
   });
 
   const validConfirmPassword = (() => {
+    if(!confirmPassword) {
+      return false
+    } else if (confirmPassword.length < 6) {
+      return false;
+    } else if (confirmPassword !== password) {
+      return false;
+    }
+    return true;
+  })();
+
+  const validEmail = (() => {
 
   })();
 }
+// FINISH VALIDATION!!!!!!!!!

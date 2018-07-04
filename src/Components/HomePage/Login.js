@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Input from "../common/InputForForm";
 import Label from "../common/LabelForForm";
-import Auth from "../services/user-auth-services";
+
 
 class Login extends Component {
   constructor() {
@@ -20,7 +20,7 @@ class Login extends Component {
 
   handleOnSubmitForm = event => {
     event.preventDefault();
-    Auth.loginUser(this.state)
+    this.props.getLoginState(this.state);
   };
 
   render() {

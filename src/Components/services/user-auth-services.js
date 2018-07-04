@@ -20,9 +20,13 @@ const auth = (() => {
         username,
         password
       });
-      saveUserData(success);
+      if (success.error) {
+        console.log("Error", success.error);
+      } else {
+        console.log("Success", success);
+      }
     } catch (err) {
-      console.log("Error", err);
+      console.log("Error COME HERE: ", err);
     }
   };
 

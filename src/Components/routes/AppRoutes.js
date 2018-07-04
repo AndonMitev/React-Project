@@ -1,15 +1,16 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "../HomePage/Home";
-import Register from "../HomePage/Register";
-import Login from "../HomePage/Login";
+import CreatePostPage from "../PostSection/CreatePostPage/CreatePostPage";
+import PostsPage from "../PostSection/AllPostsPage/PostsPage";
 
-const Routes = () => (
+const AppRoutes = () => (
   <Switch>
+    <Route path="/" exact component={Home} />
     <Route path="/home" component={Home} />
-    <Route path="/register" component={Register} />
-    <Route path="/login" component={Login} />
+    <Route path="/post/all" component={PostsPage} />
+    <Route path="/post/create" component={CreatePostPage} />
   </Switch>
 );
 
-export default Routes;
+export default AppRoutes;
