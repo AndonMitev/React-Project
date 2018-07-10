@@ -1,42 +1,29 @@
 import React, { Component } from "react";
 import Input from "../common/InputForForm";
 import Label from "../common/LabelForForm";
-
+import withFormManager from "../../hoc/FromManager";
+import model from "../../models/user";
 
 class Login extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      username: "",
-      password: ""
-    };
-  }
-
-  handleOnChangeInput = event =>
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-
-  handleOnSubmitForm = event => {
-    event.preventDefault();
-    this.props.getLoginState(this.state);
-  };
-
   render() {
     return (
       <div className="container">
+        <h1>{this.props.error}</h1>
+        <h1>{this.props.hasSuccess}</h1>
         <h3 className="display-4 text-center text-secondary">Sing in</h3>
         <hr />
         <div className="row text-center">
           <div className="offset-2 col-sm-8">
-            <form onSubmit={this.handleOnSubmitForm} className="form-group">
+            <form
+              onSubmit={this.props.handleFormOnSubmit}
+              className="form-group"
+            >
               <Label name="username" labelName="Username" />
               <Input
                 name="username"
                 type="text"
-                onChange={this.handleOnChangeInput}
-                value={this.state.username}
+                onChange={this.props.handleInputOnChange}
+                value={this.props.username}
                 className="form-control"
               />
               <br />
@@ -44,8 +31,8 @@ class Login extends Component {
               <Input
                 name="password"
                 type="password"
-                onChange={this.handleOnChangeInput}
-                value={this.state.password}
+                onChange={this.props.handleInputOnChange}
+                value={this.props.password}
                 className="form-control"
               />
               <br />
@@ -63,4 +50,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withFormManager(Login, model);

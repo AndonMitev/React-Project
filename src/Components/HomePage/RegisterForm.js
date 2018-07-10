@@ -28,6 +28,8 @@ class Register extends Component {
   render() {
     return (
       <div className="container">
+        <h1>{this.props.hasError}</h1>
+        <h1>{this.props.hasSuccess}</h1>
         <h3 className="display-4 text-center text-secondary">Sing Up</h3>
         <hr />
         <div className="row text-center">

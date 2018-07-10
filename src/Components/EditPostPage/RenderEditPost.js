@@ -1,34 +1,27 @@
 import React, { Component } from "react";
-import Input from "../../common/InputForForm";
-import Label from "../../common/LabelForForm";
-import TextArea from "../../common/TextArea";
+import Input from "../common/InputForForm";
+import Label from "../common/LabelForForm";
+import TextArea from "../common/TextArea";
 
-class CreatePost extends Component {
+export default class RenderEditPost extends Component {
   constructor(props) {
     super(props);
+    
+
     this.state = {
-      title: "",
-      description: "",
-      imageUrl: ""
+      post: {}
     };
-    console.log(this.props);
   }
 
-  handleOnChangeInput = event =>
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-
-  handleOnSubmitForm = event => {
-    event.preventDefault();
-    this.props.getPostData(this.state);
-  };
-
+  componentWillReceiveProps(post) {
+    this.setState({post}, () => console.log(this.state.post.currentPost.title));
+  }
+  
   render() {
     return (
       <div className="container">
         <h3 className="display-4 text-center text-secondary">
-          Share your awesome story with us
+          Edit your story
         </h3>
         <hr />
         <div className="row text-center">
@@ -39,7 +32,7 @@ class CreatePost extends Component {
                 type="text"
                 name="title"
                 onChange={this.handleOnChangeInput}
-                value={this.state.title}
+                value={this.state.post.currentPost.title}
                 className="form-control"
               />
               <br />
@@ -73,4 +66,34 @@ class CreatePost extends Component {
   }
 }
 
+/* 
+
+
+class CreatePost extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: "",
+      description: "",
+      imageUrl: ""
+    };
+    console.log(this.props);
+  }
+
+  handleOnChangeInput = event =>
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+
+  handleOnSubmitForm = event => {
+    event.preventDefault();
+    this.props.collectPostDataFromChildren(this.state);
+  };
+
+  
+}
+
 export default CreatePost;
+
+
+*/

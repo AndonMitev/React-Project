@@ -6,9 +6,8 @@ const crud = (() => {
   const getAuth = auth => {
     if (auth === "basic") {
       return `Basic ${btoa(AppKey + ":" + AppSecret)}`;
-    } else {
-      return `Kinvey ${localStorage.getItem("authtoken")}`;
     }
+    return `Kinvey ${localStorage.getItem("authtoken")}`;
   };
 
   const getModule = currentModule => {
@@ -33,6 +32,8 @@ const crud = (() => {
     ).then(data => data.json());
   };
 
+  
+
   const post = (currentModule, method, authorization, endPoint, data) => {
     return fetchReq(currentModule, method, authorization, endPoint, data);
   };
@@ -40,13 +41,16 @@ const crud = (() => {
     return fetchReq(currentModule, method, authorization, endPoint);
   };
 
+  const update = (currentModule, method, authorization, endPoint, data, postId) => {
+
+  }
   /*
-    (update = () => {}),
+    (),
     (remove = () => {}); */
 
   return {
     post,
-    get
+    get,
   };
 })();
 
