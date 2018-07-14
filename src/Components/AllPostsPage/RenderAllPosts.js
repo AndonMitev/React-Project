@@ -55,7 +55,7 @@ class RenderAllPosts extends Component {
                     >
                       Read More
                     </Link>
-                    <Link to={`/user/${e._acl.creator}`}>
+                    <Link to={`/user/${e._acl.creator}`} className="btn btn-warning float-left">
                       Author: {e.createdBy}
                     </Link>
                   </div>
