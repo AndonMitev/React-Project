@@ -10,7 +10,8 @@ const post = (() => {
       createdBy: localStorage.getItem("username")
     });
 
-  const getPosts = () => crud.get("app", "kinvey", "posts");
+  const getPosts = () =>
+    crud.get("app", "kinvey", `posts?query={}&sort={"_kmd.ect": -1}`);
 
   const getSinglePost = postId => crud.get("app", "kinvey", `posts/${postId}`);
 

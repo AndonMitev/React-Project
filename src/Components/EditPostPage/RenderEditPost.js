@@ -14,6 +14,7 @@ class RenderEditPost extends Component {
       title: "",
       description: "",
       imageUrl: "",
+      youtubeUrl: "",
       createdBy: ""
     };
   }

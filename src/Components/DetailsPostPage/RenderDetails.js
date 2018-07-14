@@ -18,9 +18,11 @@ class RenderDetails extends Component {
         });
         this.props.history.push("/home");
       })
-      .catch(err => toast.success(err.error, {
-        position: toast.POSITION.TOP_RIGHT
-      }));
+      .catch(err =>
+        toast.success(err.error, {
+          position: toast.POSITION.TOP_RIGHT
+        })
+      );
   };
 
   render() {

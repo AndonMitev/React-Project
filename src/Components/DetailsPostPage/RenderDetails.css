@@ -1,5 +1,5 @@
-.fixImg {
-  width: 350px;
+div > img.fixImg {
+  width: 319px;
 }
 
 .fixSize {

@@ -18,8 +18,8 @@ export default class EditPostPage extends Component {
   editCurrentPost = data => {
     const createdBy = data.createdBy.createdBy;
     const postId = this.props.match.params.id;
-    const { title, description, imageUrl } = data;
-    this.setState({ title, description, imageUrl, createdBy }, () => {
+    const { title, description, imageUrl, youtubeUrl } = data;
+    this.setState({ title, description, imageUrl, youtubeUrl, createdBy }, () => {
       postRequest
         .editPost(postId, this.state)
         .then(() => {

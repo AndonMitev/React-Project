@@ -27,7 +27,7 @@ class Comment extends Component {
 
   render() {
     return (
-      <article className="list-group-item list-group-item-action offset-2 col-md-8 mt-2">
+      <div className="list-group-item list-group-item-action offset-2 col-md-8 mt-2">
         <p className="text-justify">{this.props.data.content}</p>
         <div className="info" />
         {isAdmin.isAdmin() ||
@@ -43,7 +43,7 @@ class Comment extends Component {
         <p className="text-justify">
           <strong>Posted by: {this.props.data.createdBy} at: Today</strong>
         </p>
-      </article>
+      </div>
     );
   }
 }

@@ -21,14 +21,14 @@ class PostForm extends Component {
               onSubmit={this.props.handleFormOnSubmit}
               className="form-group"
             >
-              <Label name="title" labelName="Title" />
+              <Label name="title" labelName="Game Title" />
               <Input
                 type="text"
                 name="title"
                 onChange={this.props.handleInputOnChange}
                 value={props.title}
                 className="form-control"
-                placeholder="Your post title"
+                placeholder="Your game Title"
               />
               <br />
               <Label name="imageUrl" labelName="Image Link" />
@@ -38,16 +38,16 @@ class PostForm extends Component {
                 onChange={this.props.handleInputOnChange}
                 value={props.imageUrl}
                 className="form-control"
-                placeholder="Your post image url"
+                placeholder="Your game image url"
               />
               <br />
-              <Label name="description" labelName="Description" />
+              <Label name="description" labelName="Game description" />
               <TextArea
                 name="description"
                 onChange={this.props.handleInputOnChange}
                 value={props.description}
                 className="form-control"
-                placeholder="Your post description"
+                placeholder="Your game description"
               />
               <br />
               <Input

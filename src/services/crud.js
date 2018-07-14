@@ -26,9 +26,11 @@ const crud = (() => {
       `${KinveyUrl}/${getModule(currentModule)}/${AppKey}/${endPoint}`,
       {
         method: method,
+        mode: "cors",
         headers: {
           Authorization: getAuth(authorization),
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
         },
         body: JSON.stringify(data)
       }

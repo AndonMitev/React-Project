@@ -39,7 +39,7 @@ class RenderAllPosts extends Component {
                 className="col-lg-4 d-flex align-items-stretch mt-2"
                 key={e._id}
               >
-                <div className="card">
+                <div className="card border-dark shadow-lg mb-3 rounded">
                   <img
                     className="card-img-top fixImg"
                     src={e.imageUrl}

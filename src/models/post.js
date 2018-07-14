@@ -15,6 +15,12 @@ export default {
       );
     }
 
+    if (title.length > 40) {
+      return toast.error("Title cannot be more than 40 symbols long", {
+        position: toast.POSITION.TOP_RIGHT
+      });
+    }
+
     if (!imageUrl) {
       return toast.error("Image url is required", {
         position: toast.POSITION.TOP_RIGHT
@@ -29,5 +35,12 @@ export default {
         }
       );
     }
+
+    if (description.length > 3500) {
+      return toast.error("Description cannot be more than 3500 symbols long", {
+        position: toast.POSITION.TOP_RIGHT
+      });
+    }
+
   }
 };
