@@ -45,17 +45,20 @@ class RenderAllPosts extends Component {
                     src={e.imageUrl}
                     alt={e.title}
                   />
-                  <div className="card-body">
+                  <div className="card-body bg-light">
                     <h5 className="card-title">{e.title}</h5>
                   </div>
-                  <div className="card-footer">
+                  <div className="card-footer bg-dark">
                     <Link
                       to={`/post/details/${e._id}`}
                       className="btn btn-primary float-right"
                     >
                       Read More
                     </Link>
-                    <Link to={`/user/${e._acl.creator}`} className="btn btn-warning float-left">
+                    <Link
+                      to={`/user/${e._acl.creator}`}
+                      className="btn btn-warning float-left"
+                    >
                       Author: {e.createdBy}
                     </Link>
                   </div>
