@@ -12,9 +12,7 @@ const RenderProfilePage = props => {
       </div>
     );
   }
-  console.log(props);
   const userPosts = props.data;
-  const author = props.data[0].createdBy;
   return (
     <div className="container">
       <hr />
@@ -26,15 +24,19 @@ const RenderProfilePage = props => {
               key={e._id}
             >
               <img
-                className="float-left fixImg"
+                className="float-left fixImg mr-2 mt-3"
                 src={e.imageUrl}
                 alt={e.title}
               />
-              <h5 className="">{e.title}</h5>
-              <p>{e.description}</p>
+              <h4 className="">{e.title}</h4>
+              <hr className="col-lg-8 offset-2" />
+              <p className="text-justify text-truncate">
+                <strong>Content: </strong>
+                {e.description}
+              </p>
               <Link
                 to={`/post/details/${e._id}`}
-                className="btn btn-primary float-right"
+                className="btn btn-primary float-right mt-5"
               >
                 Read More
               </Link>

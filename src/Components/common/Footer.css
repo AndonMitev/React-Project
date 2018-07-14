@@ -1,0 +1,9 @@
+.footer {
+  position: relative;
+  margin-top: 0; /* negative value of footer height */
+  height: 80px;
+  clear: both;
+  padding-top: 20px;
+  background-color: red;
+}
+body { padding-bottom: 70px; }

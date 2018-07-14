@@ -36,7 +36,11 @@ class RenderDetails extends Component {
             className="img-fluid fixImg"
           />
           <h1 className="display-4 text-center">{currentPost.title}</h1>
-          <p>{currentPost.description}</p>
+          <hr />
+          <p className="text-justify">
+            <strong>Content: </strong>
+            {currentPost.description}
+          </p>
           {localStorage.getItem("userId") === currentPost._acl.creator ||
           isAdmin.isAdmin() ? (
             <div>

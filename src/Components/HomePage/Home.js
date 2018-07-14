@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Register from "./RegisterForm";
-import Login from "./LoginForm";
-import auth from "../../services/user-services";
+import Register from "../common/Forms/RegisterForm";
+import Login from "../common/Forms/LoginForm";
+import userServices from "../../services/user-services";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { withRouter } from "react-router";
@@ -28,7 +28,7 @@ class Home extends Component {
 
   getRegisterState = state =>
     this.setState({ register: { ...state } }, () =>
-      auth
+      userServices
         .createUser(this.state.register)
         .then(res => {
           if (res.error) {
@@ -36,7 +36,7 @@ class Home extends Component {
               position: toast.POSITION.TOP_RIGHT
             });
           }
-          auth.saveUserData(res);
+          userServices.saveUserData(res);
           toast.success(
             `Hello for first time, ${this.state.register.username}`,
             {
@@ -55,7 +55,7 @@ class Home extends Component {
 
   getLoginState = state =>
     this.setState({ login: { ...state } }, () =>
-      auth
+      userServices
         .loginUser(this.state.login)
         .then(res => {
           if (res.error) {
@@ -63,7 +63,7 @@ class Home extends Component {
               position: toast.POSITION.TOP_RIGHT
             });
           }
-          auth.saveUserData(res);
+          userServices.saveUserData(res);
           toast.success(`Welcome back, ${this.state.login.username}`, {
             position: toast.POSITION.TOP_RIGHT
           });

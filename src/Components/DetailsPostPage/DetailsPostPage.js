@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import RenderDetails from "./RenderDetails";
 import Comment from "./RenderComments";
-import postRequest from "../../services/post-services";
+import postServices from "../../services/post-services";
 import commentServices from "../../services/comment-services";
 import TextArea from "../common/TextArea";
 import Input from "../common/InputForForm";
@@ -18,17 +18,17 @@ export default class DetailsPostPage extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     const postId = this.props.match.params.id;
-    postRequest.getSinglePost(postId).then(post => {
+    postServices.getSinglePost(postId).then(post => {
       commentServices.getComments(postId).then(comments => {
-        comments = comments.map(c => {
-          return c;
+        comments = comments.map(comment => {
+          return comment;
         });
         this.setState({ post: post, comments: comments });
       });
     });
-  }
+  };
 
   handleInputOnChange = event => {
     const name = event.target.name;
@@ -53,12 +53,12 @@ export default class DetailsPostPage extends Component {
     });
   };
 
-  updateFunc = () => {
+  updateParent = () => {
     const postId = this.props.match.params.id;
-    postRequest.getSinglePost(postId).then(post => {
+    postServices.getSinglePost(postId).then(post => {
       commentServices.getComments(postId).then(comments => {
-        comments = comments.map(c => {
-          return c;
+        comments = comments.map(comment => {
+          return comment;
         });
 
         this.setState({ post: post, comments: comments });
@@ -77,7 +77,7 @@ export default class DetailsPostPage extends Component {
               <Comment
                 data={c}
                 key={c._id}
-                updateParent={this.updateFunc}
+                updateParent={this.updateParent}
                 className="list-group"
                 {...this.props}
               />
@@ -85,19 +85,22 @@ export default class DetailsPostPage extends Component {
           })}
         </div>
         <h2>Create your comment</h2>
-        <form onSubmit={this.handleFormOnSubmit} className="mt-3">
-          <TextArea
-            name="newComment"
-            onChange={this.handleInputOnChange}
-            value={this.state.newComment}
-            className="form-control fixSize"
-          />
-          <Input
-            type="submit"
-            value="Add Comment"
-            className="float-right mt-2 btn btn-primary"
-          />
-        </form>
+        <div>
+          <form onSubmit={this.handleFormOnSubmit} className="mt-3">
+            <TextArea
+              name="newComment"
+              onChange={this.handleInputOnChange}
+              value={this.state.newComment}
+              className="form-control fixSize"
+              placeholder="Your comment content goes here"
+            />
+            <Input
+              type="submit"
+              value="Add Comment"
+              className="float-right mt-2 btn btn-primary"
+            />
+          </form>
+        </div>
       </div>
     );
   };

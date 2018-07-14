@@ -25,35 +25,28 @@ class Comment extends Component {
       );
   };
 
-  render() {
-    return (
-      <div className="list-group-item list-group-item-action offset-2 col-md-8 mt-2">
-        <p className="text-justify">{this.props.data.content}</p>
-        <div className="info" />
-        {isAdmin.isAdmin() ||
-        localStorage.getItem("userId") === this.props.data._acl.creator ? (
-          <button
-            className="btn btn-danger float-right"
-            onClick={this.deleteComment}
-          >
-            Delete
-          </button>
-        ) : null}
+  render = () => (
+    <div className="list-group-item list-group-item-action offset-2 col-md-8 mt-2">
+      <p className="text-justify"><em>{this.props.data.content}</em></p>
+      <div className="info" />
+      {isAdmin.isAdmin() ||
+      localStorage.getItem("userId") === this.props.data._acl.creator ? (
+        <button
+          className="btn btn-danger float-right"
+          onClick={this.deleteComment}
+        >
+          Delete
+        </button>
+      ) : null}
 
-        <p className="text-justify">
-          <strong>Posted by: {this.props.data.createdBy} at: Today</strong>
-        </p>
-      </div>
-    );
-  }
+      <p className="text-justify">
+        <strong>
+          Posted by: <em>{this.props.data.createdBy}</em> at:{" "}
+          {this.props.data._kmd.ect}
+        </strong>
+      </p>
+    </div>
+  );
 }
 
 export default Comment;
-
-/*submitted {this.props.data.daysPast} ago by {this.props.data.author} |
-          {localStorage.getItem("username") === this.props.data.author ? (
-            <a href="#" className="deleteLink" onClick={this.deleteComment}>
-              {" "}
-              delete
-            </a>
-          ) : null} */

@@ -10,11 +10,7 @@ const comment = (() => {
     });
 
   const getComments = postId =>
-    crud.get(
-      "app",
-      "kinvey",
-      `comments?query={"postId":"${postId}"}&sort={"_kmd.ect": -1}`
-    );
+    crud.get("app", "kinvey", `comments?query={"postId":"${postId}"}`);
 
   const deleteComment = commentId =>
     crud.remove(
