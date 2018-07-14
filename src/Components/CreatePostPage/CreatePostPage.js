@@ -1,44 +1,44 @@
 import React, { Component } from "react";
-import CreatePost from "./CreatePost";
 import postRequester from "../../services/post-services";
+import PostForm from "../common/Forms/PostForm";
+import { toast } from "react-toastify";
 
-class CreatePostPage extends Component {
+export default class CreatePostPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      post: {},
-      error: "",
-      success: ""
+      title: "",
+      description: "",
+      imageUrl: "",
+      createdBy: ""
     };
   }
 
-  collectPostDataFromChildren = post =>
-    this.setState({ post }, () =>
+  getPostState = post => {
+    const createdBy = localStorage.getItem("username");
+    this.setState({ ...post, createdBy }, () => {
       postRequester
-        .post("appdata", "POST", "kinvey", "posts", this.state.post)
-        .then(success => {
-          if (success.error) {
-            this.setState({ error: "Please fill form correct" });
-            return;
-          }
-          this.setState({ Success: success });
-          this.props.history.push("/post/all");
+        .createPost({ ...this.state })
+        .then(() => {
+          toast.success(`Article "${this.state.title}" successful created`, {
+            position: toast.POSITION.TOP_RIGHT
+          });
+          this.props.history.push("/home");
         })
-        .catch(error => {
-          this.setState({ error });
-        })
-    );
+        .catch(err => {
+          toast.error(err.error, {
+            position: toast.POSITION.TOP_RIGHT
+          });
+        });
+    });
+  };
 
   render() {
     return (
       <div>
-        <CreatePost
-          collectPostDataFromChildren={this.collectPostDataFromChildren}
-        />
+        <PostForm getPostState={this.getPostState} name="Create" />
       </div>
     );
   }
 }
-
-export default CreatePostPage;

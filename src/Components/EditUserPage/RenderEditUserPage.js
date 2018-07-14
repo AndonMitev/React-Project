@@ -1,96 +1,99 @@
 import React, { Component } from "react";
+import withLoading from "../../hoc/withLoading";
+import userServices from "../../services/user-services";
 import Input from "../common/InputForForm";
 import Label from "../common/LabelForForm";
 import TextArea from "../common/TextArea";
-import postRequest from "../../services/post-services";
-import withLoading from "../../hoc/withLoading";
-import validatePost from "../../models/post";
 
-class RenderEditPost extends Component {
+class RenderEditUserPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      title: "",
-      description: "",
-      imageUrl: "",
-      createdBy: ""
+      email: "",
+      age: "",
+      city: "",
+      hobies: ""
     };
   }
 
   handleInputOnChange = event => {
-    const name = event.target.name;
+    const fieldName = event.target.name;
     const value = event.target.value;
-
     this.setState({
-      [name]: value
+      [fieldName]: value
     });
   };
 
   handleFormOnSubmit = event => {
     event.preventDefault();
-    let error = validatePost.validatePostState(this.state);
-    if (error) {
-      this.setState({ error });
-      return;
-    }
-
-    this.setState({ error: "", createdBy: this.props.data }, () =>
-      this.props.editCurrentPost(this.state)
-    );
+    this.props.editCurrentUser(this.state);
   };
 
   componentDidMount() {
     this.setState({ ...this.props.data });
   }
 
-  render() {
+  render = () => {
     return (
       <div className="container">
         <h3 className="display-4 text-center text-secondary">
-          Edit your story
+          Edit your profile
         </h3>
         <hr />
         <div className="row text-center">
           <div className="offset-2 col-sm-8">
             <form onSubmit={this.handleFormOnSubmit} className="form-group">
-              <Label name="title" labelName="Title" />
+              <Label name="email" labelName="Email" />
               <Input
+                name="email"
                 type="text"
-                name="title"
                 onChange={this.handleInputOnChange}
-                value={this.state.title}
+                value={this.state.email}
                 className="form-control"
               />
               <br />
-              <Label name="imageUrl" labelName="Image Link" />
+              <Label name="age" labelName="Age" />
               <Input
-                type="text"
-                name="imageUrl"
+                name="age"
+                type="number"
                 onChange={this.handleInputOnChange}
-                value={this.state.imageUrl}
+                value={this.state.age}
                 className="form-control"
               />
               <br />
-              <Label name="description" labelName="Description" />
+              <Label name="city" labelName="City" />
+              <Input
+                name="city"
+                type="text"
+                onChange={this.handleInputOnChange}
+                value={this.state.city}
+                className="form-control"
+              />
+              <br />
+              <Label
+                name="hobies"
+                labelName="Share with world something about you"
+              />
               <TextArea
-                name="description"
+                name="hobies"
+                type="text"
                 onChange={this.handleInputOnChange}
-                value={this.state.description}
+                value={this.state.hobies}
                 className="form-control"
               />
               <br />
               <Input
-                type="submit"
-                value="Save Changes"
                 className="btn btn-success mr-1"
+                type="submit"
+                value="Save changes"
               />
             </form>
           </div>
         </div>
       </div>
     );
-  }
+  };
 }
 
-export default withLoading(RenderEditPost, postRequest.getSinglePost);
+export default withLoading(RenderEditUserPage, userServices.myProfile);

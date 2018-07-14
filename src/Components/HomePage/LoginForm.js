@@ -1,39 +1,38 @@
 import React, { Component } from "react";
 import Input from "../common/InputForForm";
 import Label from "../common/LabelForForm";
+
 import withFormManager from "../../hoc/FromManager";
-import model from "../../models/user";
+import model from "../../models/userLogin";
 
 class Login extends Component {
   render() {
+    const props = this.props;
     return (
       <div className="container">
-        <h1>{this.props.error}</h1>
-        <h1>{this.props.hasSuccess}</h1>
         <h3 className="display-4 text-center text-secondary">Sing in</h3>
         <hr />
         <div className="row text-center">
           <div className="offset-2 col-sm-8">
-            <form
-              onSubmit={this.props.handleFormOnSubmit}
-              className="form-group"
-            >
+            <form onSubmit={props.handleFormOnSubmit} className="form-group">
               <Label name="username" labelName="Username" />
               <Input
                 name="username"
                 type="text"
-                onChange={this.props.handleInputOnChange}
-                value={this.props.username}
+                onChange={props.handleInputOnChange}
+                value={props.username}
                 className="form-control"
+                placeholder="John"
               />
               <br />
               <Label name="password" labelName="Password" />
               <Input
                 name="password"
                 type="password"
-                onChange={this.props.handleInputOnChange}
-                value={this.props.password}
+                onChange={props.handleInputOnChange}
+                value={props.password}
                 className="form-control"
+                placeholder="******"
               />
               <br />
               <Input

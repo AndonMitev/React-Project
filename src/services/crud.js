@@ -1,11 +1,14 @@
 const KinveyUrl = "https://baas.kinvey.com";
 const AppKey = "kid_BkejUDPf7";
 const AppSecret = "c247356410c4498aa99d357896425564";
+const MasterSecret = "4b0474f826c442da9d6c4200f33fd4c4";
 
 const crud = (() => {
   const getAuth = auth => {
     if (auth === "basic") {
       return `Basic ${btoa(AppKey + ":" + AppSecret)}`;
+    } else if (auth === "master") {
+      return `Basic ${btoa(AppKey + ":" + MasterSecret)}`;
     }
     return `Kinvey ${localStorage.getItem("authtoken")}`;
   };
@@ -32,25 +35,23 @@ const crud = (() => {
     ).then(data => data.json());
   };
 
-  
+  const post = (currentModule, authorization, endPoint, data) =>
+    fetchReq(currentModule, "POST", authorization, endPoint, data);
 
-  const post = (currentModule, method, authorization, endPoint, data) => {
-    return fetchReq(currentModule, method, authorization, endPoint, data);
-  };
-  const get = (currentModule, method, authorization, endPoint) => {
-    return fetchReq(currentModule, method, authorization, endPoint);
-  };
+  const get = (currentModule, authorization, endPoint) =>
+    fetchReq(currentModule, "GET", authorization, endPoint);
 
-  const update = (currentModule, method, authorization, endPoint, data, postId) => {
+  const update = (currentModule, authorization, endPoint, data) =>
+    fetchReq(currentModule, "PUT", authorization, endPoint, data);
 
-  }
-  /*
-    (),
-    (remove = () => {}); */
+  const remove = (currentModule, authorization, endPoint) =>
+    fetchReq(currentModule, "DELETE", authorization, endPoint);
 
   return {
     post,
     get,
+    update,
+    remove
   };
 })();
 

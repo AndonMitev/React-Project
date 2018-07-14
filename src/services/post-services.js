@@ -1,28 +1,48 @@
 import crud from "./crud";
+import userServices from "./user-services";
 
 const post = (() => {
-  const createPost = ({ title, description, imageUrl }) => {
-    crud
-      .post("app", "POST", "kinvey", "posts", {
-        title,
-        description,
-        imageUrl
-      })
-      .then(response => console.log(response))
-      .catch(error => console.log(error));
-  };
-  const getPosts = () => {
-    return crud.get("app", "GET", "kinvey", "posts")
-  };
+  const createPost = ({ title, description, imageUrl }) =>
+    crud.post("app", "kinvey", "posts", {
+      title,
+      description,
+      imageUrl,
+      createdBy: localStorage.getItem("username")
+    });
 
-  const getSinglePost = postId => {
-    return crud.get('app', 'GET', 'kinvey', `posts/${postId}`)
-  }
+  const getPosts = () => crud.get("app", "kinvey", "posts");
+
+  const getSinglePost = postId => crud.get("app", "kinvey", `posts/${postId}`);
+
+  const editPost = (postId, data) =>
+    crud.update(
+      "app",
+      userServices.isAdmin() ? "master" : "kinvey",
+      `posts/${postId}`,
+      data
+    );
+
+  const deletePost = postId =>
+    crud.remove(
+      "app",
+      userServices.isAdmin() ? "master" : "kinvey",
+      `posts/${postId}`
+    );
+
+  const myPosts = userId =>
+    crud.get(
+      "appdata",
+      "kinvey",
+      `posts?query={"_acl.creator":"${userId}"}&sort={"_kmd.ect": -1}`
+    );
 
   return {
     createPost,
     getPosts,
-    getSinglePost
+    getSinglePost,
+    editPost,
+    deletePost,
+    myPosts
   };
 })();
 

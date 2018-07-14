@@ -2,85 +2,69 @@ import React, { Component } from "react";
 import Input from "../common/InputForForm";
 import Label from "../common/LabelForForm";
 
+import withFormManager from "../../hoc/FromManager";
+import model from "../../models/userRegister";
+
 class Register extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      username: "",
-      email: "",
-      confirmEmail: "",
-      password: "",
-      confirmPassword: ""
-    };
-  }
-
-  handleOnChangeInput = event =>
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-
-  handleOnSubmitForm = event => {
-    event.preventDefault();
-    this.props.getRegisterState(this.state);
-  };
-
   render() {
+    const props = this.props;
     return (
       <div className="container">
-        <h1>{this.props.hasError}</h1>
-        <h1>{this.props.hasSuccess}</h1>
         <h3 className="display-4 text-center text-secondary">Sing Up</h3>
         <hr />
         <div className="row text-center">
           <div className="offset-2 col-sm-8">
-            <form onSubmit={this.handleOnSubmitForm} className="form-group">
+            <form onSubmit={props.handleFormOnSubmit} className="form-group">
               <Label name="username" labelName="Username" />
               <Input
                 name="username"
                 type="text"
-                onChange={this.handleOnChangeInput}
-                value={this.state.username}
+                onChange={props.handleInputOnChange}
+                value={props.username}
                 className="form-control"
+                placeholder="John"
               />
               <br />
               <Label name="password" labelName="Password" />
               <Input
                 name="password"
                 type="password"
-                onChange={this.handleOnChangeInput}
-                value={this.state.password}
+                onChange={props.handleInputOnChange}
+                value={props.password}
                 className="form-control"
+                placeholder="Your Password"
               />
               <br />
               <Label name="confirmPassword" labelName="Confirm password" />
               <Input
                 name="confirmPassword"
                 type="password"
-                onChange={this.handleOnChangeInput}
-                value={this.state.confirmPassword}
+                onChange={props.handleInputOnChange}
+                value={props.confirmPassword}
                 className="form-control"
+                placeholder="Your Password"
               />
               <br />
               <Label name="email" labelName="Email" />
               <Input
                 name="email"
                 type="text"
-                onChange={this.handleOnChangeInput}
-                value={this.state.email}
+                onChange={props.handleInputOnChange}
+                value={props.email}
                 className="form-control"
+                placeholder="john@gmail.com"
               />
               <br />
               <Label name="confirmEmail" labelName="Confirm Email" />
               <Input
                 name="confirmEmail"
                 type="text"
-                onChange={this.handleOnChangeInput}
-                value={this.state.confirmEmail}
+                onChange={props.handleInputOnChange}
+                value={props.confirmEmail}
                 className="form-control"
+                placeholder="john@gmail.com"
               />
               <br />
-
               <Input
                 type="submit"
                 value="Sign Up"
@@ -95,4 +79,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default withFormManager(Register, model);

@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import Register from "./RegisterForm";
 import Login from "./LoginForm";
-import auth from "../../services/user-auth-services";
+import auth from "../../services/user-services";
+import PropTypes from "prop-types";
+import { toast } from "react-toastify";
+import { withRouter } from "react-router";
 
 class Home extends Component {
   constructor(props) {
@@ -16,66 +19,77 @@ class Home extends Component {
       login: {
         username: "",
         password: ""
-      },
-      error: "",
-      success: ""
+      }
     };
   }
+  static propTypes = {
+    history: PropTypes.object.isRequired
+  };
 
   getRegisterState = state =>
     this.setState({ register: { ...state } }, () =>
       auth
-        .post("user", "POST", "basic", "", this.state.register)
-        .then(success => {
-          if (success.error) {
-            this.setState({ error: "Please fill form correct" });
-            return;
+        .createUser(this.state.register)
+        .then(res => {
+          if (res.error) {
+            return toast.error(res.error, {
+              position: toast.POSITION.TOP_RIGHT
+            });
           }
-          auth.saveUserData(success);
-          this.setState({ success: "Successful Sign Up" });
-          this.props.history.push("/post/all");
+          auth.saveUserData(res);
+          toast.success(
+            `Hello for first time, ${this.state.register.username}`,
+            {
+              position: toast.POSITION.TOP_RIGHT
+            }
+          );
+          const { history } = this.props;
+          history.push("/home");
         })
-        .catch(error => {
-          this.setState({ error });
+        .catch(err => {
+          toast.error(err.error, {
+            position: toast.POSITION.TOP_RIGHT
+          });
         })
     );
 
   getLoginState = state =>
-    this.setState({ login: { ...state } }, () => {
-      const result = auth.loginUser(this.state.login);
-      console.log(result);
-    });
+    this.setState({ login: { ...state } }, () =>
+      auth
+        .loginUser(this.state.login)
+        .then(res => {
+          if (res.error) {
+            return toast.error(res.error, {
+              position: toast.POSITION.TOP_RIGHT
+            });
+          }
+          auth.saveUserData(res);
+          toast.success(`Welcome back, ${this.state.login.username}`, {
+            position: toast.POSITION.TOP_RIGHT
+          });
+          const { history } = this.props;
+          history.push("/home");
+        })
+        .catch(err => {
+          toast.error(err.error, {
+            position: toast.POSITION.TOP_RIGHT
+          });
+        })
+    );
 
   render() {
     return (
-      <div>
-        <Register
-          getRegisterState={this.getRegisterState}
-          hasError={this.state.error}
-          hasSuccess={this.state.success}
-        />
-        <Login
-          getLoginState={this.getLoginState}
-          hasError={this.state.error}
-          hasSuccess={this.state.success}
-        />
+      <div className="container">
+        <h1 className="display-4 text-center ">Welcome to my react app</h1>
+        <h4 className="text-center mb-5 text-secondary">
+          <strong>Note:</strong> Please create account if you dont have one or u
+          can login if you already have.
+        </h4>
+        <Login getLoginState={this.getLoginState} {...this.props} />
+        <Register getRegisterState={this.getRegisterState} {...this.props} />
       </div>
     );
   }
 }
 
-export default Home;
-
-/*
- auth
-        .loginUser(this.state.login)
-        .then(res => {
-          if (res.error) {
-            this.setState({ error: "Please fill form correct" });
-            return;
-          }
-          auth.saveUserData(res);
-          this.setState({ res: "Successful Sign In" });
-          this.props.history.push("/post/all");
-        })
-        .catch(error => this.setState({ error }))*/
+export default withRouter(Home);

@@ -1,39 +1,30 @@
 import React, { Component } from "react";
 import RenderAllPosts from "./RenderAllPosts";
-import postRequester from "../../services/post-services";
+import SearchSection from "./SearchSection";
 
-export default class AllPostsPage extends Component {
+class AllPostsPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       posts: [],
-      error: ""
+      title: ""
     };
   }
 
-  getAllPosts = () => {
-    postRequester
-      .getPosts()
-      .then(posts => {
-        if (posts.length !== 0) {
-          this.setState({ posts });
-        }
-      })
-      .catch(error => {
-        this.setState({ error });
-      });
+  getSearchData = searchData => {
+    const { posts, title } = searchData;
+    this.setState({ posts, title });
   };
-
-  componentDidMount() {
-    this.getAllPosts();
-  }
 
   render = () => {
     return (
       <div>
-        {this.state.posts.map(e => <RenderAllPosts key={e._id} {...e} />)}
+        <SearchSection {...this.props} getSearchData={this.getSearchData} />
+        <RenderAllPosts {...this.props} postsToSearch={this.state} />
       </div>
     );
   };
 }
+
+export default AllPostsPage;

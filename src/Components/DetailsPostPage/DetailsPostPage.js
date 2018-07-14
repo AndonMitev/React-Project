@@ -1,30 +1,104 @@
 import React, { Component } from "react";
 import RenderDetails from "./RenderDetails";
+import Comment from "./RenderComments";
 import postRequest from "../../services/post-services";
+import commentServices from "../../services/comment-services";
+import TextArea from "../common/TextArea";
+import Input from "../common/InputForForm";
+import { toast } from "react-toastify";
 
 export default class DetailsPostPage extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       post: {},
-      error: ""
+      comments: [],
+      newComment: ""
     };
   }
 
-    
-  componentDidMount = () => {
+  componentDidMount() {
     const postId = this.props.match.params.id;
-    postRequest
-      .getSinglePost(postId)
-      .then(post => {
-        if (post.error) {
-          this.setState({ error: "Article was not found! Please try again" });
-          return;
-        }
-        this.setState({ post });
-      })
-      .catch(error => this.setState({ error }));
+    postRequest.getSinglePost(postId).then(post => {
+      commentServices.getComments(postId).then(comments => {
+        comments = comments.map(c => {
+          return c;
+        });
+        this.setState({ post: post, comments: comments });
+      });
+    });
+  }
+
+  handleInputOnChange = event => {
+    const name = event.target.name;
+    const value = event.target.value;
+    this.setState({ [name]: value });
   };
 
-  render = () => <RenderDetails currentPost={this.state} />;
+  handleFormOnSubmit = event => {
+    event.preventDefault();
+    const postId = this.state.post._id;
+    const content = this.state.newComment;
+
+    commentServices.createComment(postId, content).then(commentInfo => {
+      this.state.comments.push(commentInfo);
+      toast.success("New comment successful added.", {
+        position: toast.POSITION.TOP_RIGHT
+      });
+      this.setState(prevState => ({
+        comments: prevState.comments,
+        newComment: ""
+      }));
+    });
+  };
+
+  updateFunc = () => {
+    const postId = this.props.match.params.id;
+    postRequest.getSinglePost(postId).then(post => {
+      commentServices.getComments(postId).then(comments => {
+        comments = comments.map(c => {
+          return c;
+        });
+
+        this.setState({ post: post, comments: comments });
+      });
+    });
+  };
+
+  render = () => {
+    return (
+      <div className="container">
+        <RenderDetails {...this.props} />
+        <h2 className="col">Comments</h2>
+        <div className="row">
+          {this.state.comments.map(c => {
+            return (
+              <Comment
+                data={c}
+                key={c._id}
+                updateParent={this.updateFunc}
+                className="list-group"
+                {...this.props}
+              />
+            );
+          })}
+        </div>
+        <h2>Create your comment</h2>
+        <form onSubmit={this.handleFormOnSubmit} className="mt-3">
+          <TextArea
+            name="newComment"
+            onChange={this.handleInputOnChange}
+            value={this.state.newComment}
+            className="form-control fixSize"
+          />
+          <Input
+            type="submit"
+            value="Add Comment"
+            className="float-right mt-2 btn btn-primary"
+          />
+        </form>
+      </div>
+    );
+  };
 }
