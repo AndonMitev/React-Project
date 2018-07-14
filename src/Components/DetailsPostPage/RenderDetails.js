@@ -1,16 +1,18 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import withLoading from "../../hoc/withLoading";
-import postRequest from "../../services/post-services";
+import postServices from "../../services/post-services";
 import Button from "../common/Button";
 import isAdmin from "../../services/user-services";
 import "./RenderDetails.css";
 import { toast } from "react-toastify";
 
 class RenderDetails extends Component {
+
+  //Delete post and redirect
   deleteItem = () => {
     const postId = this.props.match.params.id;
-    postRequest
+    postServices
       .deletePost(postId)
       .then(() => {
         toast.success("Article successful deleted.", {
@@ -60,4 +62,4 @@ class RenderDetails extends Component {
   }
 }
 
-export default withLoading(RenderDetails, postRequest.getSinglePost);
+export default withLoading(RenderDetails, postServices.getSinglePost);

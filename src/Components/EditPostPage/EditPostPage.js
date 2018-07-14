@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import postRequest from "../../services/post-services";
+import postServices from "../../services/post-services";
 import RenderEditPost from "./RenderEditPost";
 import { toast } from "react-toastify";
 
@@ -15,12 +15,13 @@ export default class EditPostPage extends Component {
     };
   }
 
+  //Getting data from new created post and fetch it again
   editCurrentPost = data => {
     const createdBy = data.createdBy.createdBy;
     const postId = this.props.match.params.id;
-    const { title, description, imageUrl, youtubeUrl } = data;
-    this.setState({ title, description, imageUrl, youtubeUrl, createdBy }, () => {
-      postRequest
+    const { title, description, imageUrl } = data;
+    this.setState({ title, description, imageUrl, createdBy }, () => {
+      postServices
         .editPost(postId, this.state)
         .then(() => {
           toast.success(`Article "${this.state.title}" successful edited`, {

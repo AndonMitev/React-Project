@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 
 export default {
+  //Generate default state props for HOC to handle
   defaultState: {
     username: "",
     password: "",
@@ -9,6 +10,7 @@ export default {
     confirmEmail: ""
   },
 
+  //Generate validation on props for HOC to handle 
   validateRegisterState: obj => {
     const { username, password, confirmPassword, email, confirmEmail } = obj;
 

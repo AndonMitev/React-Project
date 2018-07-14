@@ -8,6 +8,7 @@ import ProfilePage from "../ProfilePage/ProfilePage";
 import EditUserPage from "../EditUserPage/EditUserPage";
 import Logout from "./Logout";
 
+// Connect route with component
 const CurrentViewComponent = () => (
   <Switch>
     <Route path="/" exact component={AllPostsPage} />

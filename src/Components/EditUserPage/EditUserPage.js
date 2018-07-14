@@ -15,6 +15,7 @@ class EditUserPage extends Component {
     };
   }
 
+  //Getting new user data and make PUT request
   editCurrentUser = data => {
     const { username, email, age, city, hobbies } = data;
     this.setState({ username, email, age, city, hobbies }, () =>

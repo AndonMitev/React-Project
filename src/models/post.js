@@ -1,8 +1,10 @@
 import { toast } from "react-toastify";
 
 export default {
+  //Generate default state props for HOC to handle
   defaultState: { title: "", imageUrl: "", description: "" },
 
+   //Generate validation on props for HOC to handle
   validatePostState: obj => {
     const { title, imageUrl, description } = obj;
 

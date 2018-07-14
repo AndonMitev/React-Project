@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import postRequester from "../../services/post-services";
+import postServices from "../../services/post-services";
 import SearchForm from "../common/Forms/SearchForm";
 
 export default class SearchSection extends Component {
@@ -12,8 +12,9 @@ export default class SearchSection extends Component {
     };
   }
 
+  //Getting data from search section and send it to parrent AllPostsPage
   getSearchState = state =>
-    postRequester
+    postServices
       .getPosts()
       .then(posts => {
         const title = state.title;

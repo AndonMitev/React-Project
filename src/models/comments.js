@@ -1,7 +1,9 @@
 import { toast } from "react-toastify";
 export default {
+  //Generate default state props for HOC to handle
   defaultState: { content: "" },
 
+  //Generate validation on props for HOC to handle
   validateCommentState: obj => {
     const { content } = obj;
 

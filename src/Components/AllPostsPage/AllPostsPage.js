@@ -12,6 +12,7 @@ class AllPostsPage extends Component {
     };
   }
 
+  //Handle data from search form and send it to search section so can handle search properly 
   getSearchData = searchData => {
     const { posts, title } = searchData;
     this.setState({ posts, title });

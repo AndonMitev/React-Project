@@ -26,6 +26,7 @@ class Home extends Component {
     history: PropTypes.object.isRequired
   };
 
+  //Fetching register state
   getRegisterState = state =>
     this.setState({ register: { ...state } }, () =>
       userServices
@@ -53,6 +54,7 @@ class Home extends Component {
         })
     );
 
+  //Fetching Login state
   getLoginState = state =>
     this.setState({ login: { ...state } }, () =>
       userServices

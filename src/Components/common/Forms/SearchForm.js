@@ -1,6 +1,6 @@
 import React from "react";
 import Input from "../InputForForm";
-import FormManager from "../../../hoc/FromManager";
+import withFormManager from "../../../hoc/FromManager";
 import model from "../../../models/search";
 
 const SearchForm = props => {
@@ -29,4 +29,4 @@ const SearchForm = props => {
   );
 };
 
-export default FormManager(SearchForm, model);
+export default withFormManager(SearchForm, model);

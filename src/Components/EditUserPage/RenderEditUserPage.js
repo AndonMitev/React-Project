@@ -17,6 +17,7 @@ class RenderEditUserPage extends Component {
     };
   }
 
+  //Handle input on change
   handleInputOnChange = event => {
     const fieldName = event.target.name;
     const value = event.target.value;
@@ -25,11 +26,13 @@ class RenderEditUserPage extends Component {
     });
   };
 
+  //Handle form on submit
   handleFormOnSubmit = event => {
     event.preventDefault();
     this.props.editCurrentUser(this.state);
   };
 
+  //Render element when its ready and send data to form so can fill it correctly with current user data
   componentDidMount() {
     this.setState({ ...this.props.data });
   }

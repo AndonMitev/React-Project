@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Input from "../InputForForm";
 import Label from "../LabelForForm";
 import TextArea from "../TextArea";
-import FormManager from "../../../hoc/FromManager";
+import withFormManager from "../../../hoc/FromManager";
 import model from "../../../models/post";
 
 class PostForm extends Component {
@@ -63,4 +63,4 @@ class PostForm extends Component {
   }
 }
 
-export default FormManager(PostForm, model);
+export default withFormManager(PostForm, model);

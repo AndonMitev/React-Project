@@ -18,6 +18,7 @@ export default class DetailsPostPage extends Component {
     };
   }
 
+  //Fetching data for current post + comments and fill form when component is ready
   componentDidMount = () => {
     const postId = this.props.match.params.id;
     postServices.getSinglePost(postId).then(post => {
@@ -30,19 +31,22 @@ export default class DetailsPostPage extends Component {
     });
   };
 
+  //Input handle
   handleInputOnChange = event => {
     const name = event.target.name;
     const value = event.target.value;
     this.setState({ [name]: value });
   };
 
+  //Form handle
   handleFormOnSubmit = event => {
     event.preventDefault();
     const postId = this.state.post._id;
     const content = this.state.newComment;
 
-    commentServices.createComment(postId, content).then(commentInfo => {
-      this.state.comments.push(commentInfo);
+    //Trigger re-rendering if new comment is added
+    commentServices.createComment(postId, content).then(commentContent => {
+      this.state.comments.push(commentContent);
       toast.success("New comment successful added.", {
         position: toast.POSITION.TOP_RIGHT
       });
@@ -53,14 +57,12 @@ export default class DetailsPostPage extends Component {
     });
   };
 
+  //Trigger re-rendering if comment is deleted so fetch data again
   updateParent = () => {
     const postId = this.props.match.params.id;
     postServices.getSinglePost(postId).then(post => {
       commentServices.getComments(postId).then(comments => {
-        comments = comments.map(comment => {
-          return comment;
-        });
-
+        comments = comments.map(comment => comment);
         this.setState({ post: post, comments: comments });
       });
     });

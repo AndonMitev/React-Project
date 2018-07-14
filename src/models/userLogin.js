@@ -1,8 +1,10 @@
 import { toast } from "react-toastify";
 
 export default {
+  //Generate default state props for HOC to handle
   defaultState: { username: "", password: "" },
 
+  //Generate validation on props for HOC to handle 
   validateLoginState: obj => {
     const { username, password } = obj;
 

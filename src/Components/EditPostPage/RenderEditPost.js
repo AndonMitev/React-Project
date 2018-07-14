@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Input from "../common/InputForForm";
 import Label from "../common/LabelForForm";
 import TextArea from "../common/TextArea";
-import postRequest from "../../services/post-services";
+import postServices from "../../services/post-services";
 import withLoading from "../../hoc/withLoading";
 import validatePost from "../../models/post";
 
@@ -19,6 +19,7 @@ class RenderEditPost extends Component {
     };
   }
 
+  //Handle input on change
   handleInputOnChange = event => {
     const name = event.target.name;
     const value = event.target.value;
@@ -28,6 +29,7 @@ class RenderEditPost extends Component {
     });
   };
 
+  //Handle form on submit
   handleFormOnSubmit = event => {
     event.preventDefault();
     let error = validatePost.validatePostState(this.state);
@@ -35,12 +37,13 @@ class RenderEditPost extends Component {
       this.setState({ error });
       return;
     }
-
+    //Send data to parrent
     this.setState({ error: "", createdBy: this.props.data }, () =>
       this.props.editCurrentPost(this.state)
     );
   };
 
+  //when component is ready so we can fill form with current post data
   componentDidMount() {
     this.setState({ ...this.props.data });
   }
@@ -94,4 +97,4 @@ class RenderEditPost extends Component {
   }
 }
 
-export default withLoading(RenderEditPost, postRequest.getSinglePost);
+export default withLoading(RenderEditPost, postServices.getSinglePost);

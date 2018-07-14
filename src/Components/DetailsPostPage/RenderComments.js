@@ -8,6 +8,7 @@ class Comment extends Component {
     super(props);
   }
 
+  //Delete comment after success delete trigger updateParrent so fetch data again
   deleteComment = () => {
     const id = this.props.data._id;
     commentServices
@@ -41,7 +42,7 @@ class Comment extends Component {
 
       <p className="text-justify">
         <strong>
-          Posted by: <em>{this.props.data.createdBy}</em> at:{" "}
+          Posted by: <em>{this.props.data.createdBy}</em> at:
           {this.props.data._kmd.ect}
         </strong>
       </p>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import postRequester from "../../services/post-services";
+import postServices from "../../services/post-services";
 import PostForm from "../common/Forms/PostForm";
 import { toast } from "react-toastify";
 
@@ -15,10 +15,11 @@ export default class CreatePostPage extends Component {
     };
   }
 
+  //Getting state from post form and create new post
   getPostState = post => {
     const createdBy = localStorage.getItem("username");
     this.setState({ ...post, createdBy }, () => {
-      postRequester
+      postServices
         .createPost({ ...this.state })
         .then(() => {
           toast.success(`Article "${this.state.title}" successful created`, {

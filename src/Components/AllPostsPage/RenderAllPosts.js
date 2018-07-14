@@ -7,13 +7,16 @@ import "./Posts.css";
 const RenderAllPosts = props => {
   let allPosts = props.data;
 
+  //Depend on search form state
   const postsToSearch = props.postsToSearch;
   let searchedItem = props.postsToSearch.title;
 
+  //If posts exists
   if (postsToSearch.posts.length !== 0) {
     allPosts = postsToSearch.posts;
   }
 
+  //If posts dont exists
   if (searchedItem.length !== 0 && postsToSearch.posts.length === 0) {
     return (
       <h2>
